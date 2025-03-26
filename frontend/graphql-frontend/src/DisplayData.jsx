@@ -14,13 +14,25 @@ const DisplayData = () => {
   const { data, loading, error } = useQuery(QUERY_ALL_USERS);
   if (data) {
     console.log(data);
-  }else if (error) {
+  } else if (error) {
     console.log(error);
   }
   if (loading) {
     return <div>Loading...</div>;
   } else {
-    return <div>List of user </div>;
+    return(
+    <div>
+      {data && data.users.map((user) => {
+        return (
+          <div key={user.id}>
+            <p>{user.name}</p>
+            <p>{user.username}</p>
+            <p>{user.age}</p>
+          </div>
+        )
+      })}
+    </div>
+    );
   }
 };
 
