@@ -7,6 +7,7 @@ const QUERY_ALL_USERS = gql`
       id
       username
       age
+      nationality
     }
   }
 `;
