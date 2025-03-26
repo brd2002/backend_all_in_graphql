@@ -1,5 +1,5 @@
-import React from "react";
-import { useQuery, gql } from "@apollo/client";
+import React, { useState } from "react";
+import { useQuery, gql , useLazyQuery } from "@apollo/client";
 const QUERY_ALL_USERS = gql`
   query getAllUsers {
     users {
@@ -12,7 +12,9 @@ const QUERY_ALL_USERS = gql`
   }
 `;
 const DisplayData = () => {
+  const [movieSearchData , setMovieSearchData] = useState("");
   const { data, loading, error } = useQuery(QUERY_ALL_USERS);
+  // const [fetchMovie ,{data : movieSearchData , error }] = useLazyQuery();
   if (data) {
     console.log(data);
   } else if (error) {
@@ -23,15 +25,10 @@ const DisplayData = () => {
   } else {
     return(
     <div>
-      {data && data.users.map((user) => {
-        return (
-          <div key={user.id}>
-            <p>{user.name}</p>
-            <p>{user.username}</p>
-            <p>{user.age}</p>
-          </div>
-        )
-      })}
+      <input type="text" onChange={(e) => setMovieSearchData(e.target.value)}/>
+      <button onClick={() => {
+        console.log("Movie name is " + movieSearchData)
+      }}>Search</button>
     </div>
     );
   }
